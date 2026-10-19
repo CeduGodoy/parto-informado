@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>PartoInformado</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fff7f4;--card:#fff;--ink:#3b2b2f;--mute:#7a666b;--rose:#d9738a;--rose2:#f9dfe5;--sage:#7fa38c;--sage2:#e3efe7;--warn:#fff1d6;--warnb:#e0a63a;--line:#f0d9de;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#241a1d;--card:#33262a;--ink:#f6e9ec;--mute:#c4aab0;--rose:#ee93a8;--rose2:#47303a;--sage:#8fbf9f;--sage2:#2b3d32;--warn:#4a3b1c;--warnb:#e0a63a;--line:#4a3a40}}
+:root[data-theme="dark"]{--bg:#241a1d;--card:#33262a;--ink:#f6e9ec;--mute:#c4aab0;--rose:#ee93a8;--rose2:#47303a;--sage:#8fbf9f;--sage2:#2b3d32;--warn:#4a3b1c;--warnb:#e0a63a;--line:#4a3a40}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 64px);scroll-behavior:smooth}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 'Nunito',system-ui,sans-serif}
+.wrap{max-width:720px;margin:0 auto;padding:0 16px 48px}
+header{text-align:center;padding:36px 8px 20px}
+.logo{width:72px;height:72px;border-radius:50%;background:var(--rose2);display:grid;place-items:center;font-size:36px;margin:0 auto 12px}
+h1{font-family:'Fraunces',Georgia,serif;font-size:2rem;line-height:1.15;margin:0 0 8px}
+header p{color:var(--mute);margin:0 auto;max-width:460px}
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding:8px 0;margin:0 -16px;display:flex;gap:8px;overflow-x:auto;padding-left:16px;padding-right:16px;scrollbar-width:none}
+nav a{flex:none;text-decoration:none;color:var(--ink);background:var(--card);border:1px solid var(--line);padding:6px 14px;border-radius:99px;font-size:.88rem;font-weight:600}
+h2.sec{font-family:'Fraunces',Georgia,serif;font-size:1.3rem;margin:28px 0 10px;color:var(--rose)}
+.alert{background:var(--warn);border-left:5px solid var(--warnb);border-radius:14px;padding:14px 16px;margin:4px 0 18px}
+.alert b{display:block;margin-bottom:4px}
+.alert ul{margin:6px 0 0;padding-left:20px}
+details{background:var(--card);border:1px solid var(--line);border-radius:16px;margin-bottom:10px;overflow:hidden}
+summary{cursor:pointer;list-style:none;padding:14px 16px;font-weight:700;display:flex;gap:12px;align-items:center}
+summary::-webkit-details-marker{display:none}
+summary .ic{font-size:1.4rem;width:40px;height:40px;border-radius:12px;background:var(--rose2);display:grid;place-items:center;flex:none}
+summary .ch{margin-left:auto;transition:transform .2s;color:var(--mute)}
+details[open] summary .ch{transform:rotate(90deg)}
+.body{padding:0 16px 16px}
+.body ul{padding-left:20px;margin:8px 0}
+.body li{margin:6px 0}
+.hl{background:var(--sage2);border-radius:12px;padding:10px 14px;margin:10px 0}
+.hl.r{background:var(--rose2)}
+.no{color:#c0455e;font-weight:700}
+.checks label{display:flex;gap:10px;align-items:flex-start;padding:9px 0;border-bottom:1px dashed var(--line);cursor:pointer}
+.checks input{width:20px;height:20px;margin-top:3px;accent-color:var(--rose);flex:none}
+.checks input:checked+span{text-decoration:line-through;color:var(--mute)}
+.contact{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:8px}
+.btn{display:inline-block;background:var(--rose);color:#fff;text-decoration:none;padding:8px 16px;border-radius:99px;font-weight:700;font-size:.92rem}
+.alert.red{background:#fde4e4;border-left-color:#d64545}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .alert.red{background:#4a2326}}
+:root[data-theme="dark"] .alert.red{background:#4a2326}
+.tl{list-style:none;margin:10px 0 0 14px;padding:0;border-left:3px solid var(--rose2)}
+.tl li{position:relative;padding:0 0 16px 24px}
+.tl li::before{content:attr(data-n);position:absolute;left:-15px;top:0;width:27px;height:27px;border-radius:50%;background:var(--rose);color:#fff;font-weight:700;display:grid;place-items:center;font-size:.85rem}
+.mini{font-weight:700;margin:14px 0 2px;color:var(--sage)}
+.cmp{display:grid;gap:10px;margin:10px 0}
+@media(min-width:560px){.cmp{grid-template-columns:1fr 1fr}}
+.cmp>div{border-radius:14px;padding:12px 14px}
+.cmp .ok{background:var(--sage2)}
+.cmp .go{background:#fde4e4}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .cmp .go{background:#4a2326}}
+:root[data-theme="dark"] .cmp .go{background:#4a2326}
+.cmp b.t{display:block;margin-bottom:4px}
+.cmp ul{margin:4px 0 0;padding-left:20px}
+.tool input[type=text],.tool textarea{width:100%;font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:8px 10px;margin:4px 0 10px}
+.big{width:100%;border:0;border-radius:16px;padding:18px;font-family:inherit;font-weight:700;font-size:1.1rem;color:#fff;background:var(--sage);cursor:pointer}
+.big.on{background:#d64545}
+.btn2{border:1px solid var(--rose);background:transparent;color:var(--rose);border-radius:99px;padding:8px 16px;font-family:inherit;font-weight:700;font-size:.9rem;cursor:pointer}
+.btn2.fill{background:var(--rose);color:#fff}
+.opts label{display:flex;gap:10px;align-items:flex-start;padding:5px 0;cursor:pointer}
+.opts input{width:20px;height:20px;accent-color:var(--rose);flex:none;margin-top:3px}
+table.ct{width:100%;border-collapse:collapse;margin-top:12px;font-size:.92rem}
+table.ct th,table.ct td{padding:6px 4px;border-bottom:1px solid var(--line);text-align:left}
+.out{white-space:pre-wrap;background:var(--bg);border:1px dashed var(--line);border-radius:12px;padding:12px;margin-top:10px;font-size:.92rem}
+#printArea{display:none}
+@media print{.wrap{display:none!important}#printArea{display:block!important;color:#000;background:#fff;padding:24px}body{background:#fff}}
+footer{text-align:center;color:var(--mute);font-size:.85rem;margin-top:32px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="logo">🤰</div>
+  <h1>PartoInformado</h1>
+  <p>Pronto Socorro Obstétrico e Ginecológico<br>Hospital Municipal Dr. José de Carvalho Florence</p>
+</header>
+
+<nav>
+  <a href="#preparo">Prepare-se</a>
+  <a href="#alertas">Alertas</a>
+  <a href="#esperar">O que esperar</a>
+  <a href="#direitos">Seus direitos</a>
+  <a href="#roteiro">Roteiro</a>
+  <a href="#ferramentas">Ferramentas</a>
+  <a href="#amamentar">Amamentação</a>
+  <a href="#internar">Internação</a>
+  <a href="#projetos">Projetos</a>
+  <a href="#contato">Contato</a>
+</nav>
+
+<h2 class="sec" id="preparo">✅ Prepare-se</h2>
+<details open>
+  <summary><span class="ic">🎒</span>O que levar<span class="ch">›</span></summary>
+  <div class="body checks" id="levar">
+    <label><input type="checkbox"><span>Documento com foto da paciente e do familiar/acompanhante</span></label>
+    <label><input type="checkbox"><span>Cartão/caderneta do pré-natal e exames</span></label>
+    <label><input type="checkbox"><span>Plano de parto, já preenchido, para entregar à equipe</span></label>
+    <label><input type="checkbox"><span>Roupas confortáveis</span></label>
+    <label><input type="checkbox"><span>Produtos de higiene pessoal</span></label>
+    <label><input type="checkbox"><span>Cílios postiços, unhas artificiais/esmalte escuro e piercings retirados</span></label>
+    <label><input type="checkbox"><span>Celular no modo silencioso</span></label>
+    <p style="color:var(--mute);font-size:.88rem;margin:10px 0 0">Leve somente o necessário: o hospital não se responsabiliza pelos pertences da paciente. Seu progresso fica salvo neste aparelho.</p>
+  </div>
+</details>
+<details>
+  <summary><span class="ic">🧳</span>Mala da maternidade<span class="ch">›</span></summary>
+  <div class="body checks">
+    <p style="margin:0;color:var(--mute);font-size:.9rem">Leve só o necessário. Pergunte à equipe o que o hospital já fornece. Mamadeira, chupeta e bicos não entram: são proibidos no hospital.</p>
+    <div class="mini">👩 Para a mãe</div>
+    <div id="mala-mae"><label><input type="checkbox"><span>Camisolas ou roupas confortáveis (de preferência abertas na frente)</span></label><label><input type="checkbox"><span>Sutiã de amamentação</span></label><label><input type="checkbox"><span>Absorventes pós-parto</span></label><label><input type="checkbox"><span>Calcinhas confortáveis</span></label><label><input type="checkbox"><span>Chinelo e meias</span></label><label><input type="checkbox"><span>Itens de higiene pessoal</span></label><label><input type="checkbox"><span>Roupa confortável para a alta</span></label></div>
+    <div class="mini">👶 Para o bebê</div>
+    <div id="mala-bebe"><label><input type="checkbox"><span>Roupinhas para a saída (body, macacão, meias, luvas)</span></label><label><input type="checkbox"><span>Manta ou casaquinho</span></label><label><input type="checkbox"><span>Fraldas</span></label><label><input type="checkbox"><span>Touca</span></label></div>
+    <div class="mini">🧑 Para o acompanhante</div>
+    <div id="mala-acomp"><label><input type="checkbox"><span>Documento com foto</span></label><label><input type="checkbox"><span>Roupa confortável e item de higiene</span></label><label><input type="checkbox"><span>Carregador de celular</span></label></div>
+  </div>
+</details>
+<details>
+  <summary><span class="ic">💬</span>O que perguntar à equipe<span class="ch">›</span></summary>
+  <div class="body checks" id="perguntar">
+    <p style="margin:0 0 4px;color:var(--mute);font-size:.9rem">Sugestões para anotar suas dúvidas:</p>
+    <label><input type="checkbox"><span>Como saber que é hora de ir ao hospital?</span></label>
+    <label><input type="checkbox"><span>Posso escolher a posição do parto e me movimentar?</span></label>
+    <label><input type="checkbox"><span>Quais métodos de alívio da dor estão disponíveis?</span></label>
+    <label><input type="checkbox"><span>Meu acompanhante poderá ficar comigo o tempo todo?</span></label>
+    <label><input type="checkbox"><span>Como será o contato pele a pele com o bebê?</span></label>
+    <label><input type="checkbox"><span>Como funcionam as visitas e o alojamento conjunto?</span></label>
+    <label><input type="checkbox"><span>Quais métodos de planejamento familiar posso escolher?</span></label>
+  </div>
+</details>
+<details>
+  <summary><span class="ic">📝</span>Plano de parto<span class="ch">›</span></summary>
+  <div class="body">
+    <p>É um documento em que a gestante escreve, de forma clara, como deseja que sejam os cuidados durante o trabalho de parto, o parto, o pós-parto e os cuidados com o bebê.</p>
+    <div class="hl r"><b>Já fez o seu? Entregue para a equipe!</b></div>
+  </div>
+</details>
+
+<h2 class="sec" id="alertas">🚨 Sinais de alerta</h2>
+<div class="alert red">
+  <b>Procure o Pronto Socorro Obstétrico logo se tiver:</b>
+  <ul>
+    <li>Sangramento pela vagina</li>
+    <li>Perda de líquido (saída de "água" pela vagina)</li>
+    <li>Contrações regulares, que ficam mais fortes e mais próximas</li>
+    <li>Bebê se mexendo bem menos que o normal, ou parado</li>
+    <li>Dor de cabeça forte, visão turva ou luzes piscando</li>
+    <li>Inchaço repentino no rosto, nas mãos ou nos pés</li>
+    <li>Dor forte na barriga</li>
+    <li>Febre, vômitos que não passam ou dor ao urinar</li>
+  </ul>
+  <p style="margin:8px 0 0;font-size:.9rem">Esta é uma lista geral. Na dúvida, não espere: procure atendimento. Em situação grave, ligue para o SAMU: <b>192</b>.</p>
+</div>
+
+<details>
+  <summary><span class="ic">⚖️</span>Normal ou hora de chamar a equipe?<span class="ch">›</span></summary>
+  <div class="body">
+    <div class="cmp">
+      <div class="ok"><b class="t">🌿 Costuma fazer parte da evolução normal</b>
+        <ul>
+          <li>Contrações irregulares, que passam com repouso, banho morno ou troca de posição</li>
+          <li>Saída de muco espesso, claro ou rosado (tampão), às vezes com um fiozinho de sangue</li>
+          <li>Cólica leve, peso na pelve ou dor nas costas</li>
+          <li>Mais secreção vaginal que o habitual</li>
+          <li>Bebê com movimentos normais para ele</li>
+        </ul>
+      </div>
+      <div class="go"><b class="t">🚨 Procure a equipe</b>
+        <ul>
+          <li>Sangramento vermelho vivo, como menstruação ou mais</li>
+          <li>Perda de líquido, mesmo pouca, principalmente se for esverdeado, escuro ou com cheiro forte</li>
+          <li>Contrações regulares, que ficam mais fortes e mais próximas e não passam com repouso</li>
+          <li>Bebê se mexendo bem menos que o habitual</li>
+          <li>Dor forte e constante na barriga</li>
+          <li>Dor de cabeça forte, visão alterada ou inchaço repentino</li>
+          <li>Febre ou muita vontade de fazer força</li>
+        </ul>
+      </div>
+    </div>
+    <p style="color:var(--mute);font-size:.88rem;margin:0">Isto é um guia geral. Se ficar em dúvida, venha ao pronto-socorro, pois a equipe prefere avaliar e tranquilizar você. Pergunte à sua equipe do pré-natal qual frequência de contrações ela recomenda para vir.</p>
+  </div>
+</details>
+
+<h2 class="sec" id="esperar">🌊 O que esperar do trabalho de parto</h2>
+<details open>
+  <summary><span class="ic">🌀</span>Por que o parto dói?<span class="ch">›</span></summary>
+  <div class="body">
+    <p>A dor vem das contrações do útero, que ajudam o colo a afinar e abrir (dilatar) e o bebê a descer. Costuma vir em ondas: sobe, chega ao pico e diminui, com pausas de descanso entre elas. A intensidade e a forma de sentir variam muito de mulher para mulher.</p>
+    <div class="hl"><b>Cada contração tem um propósito.</b> Saber disso ajuda: ela vai passar, e você descansa antes da próxima.</div>
+  </div>
+</details>
+<details>
+  <summary><span class="ic">⏱️</span>Como costuma evoluir<span class="ch">›</span></summary>
+  <div class="body">
+    <ul>
+      <li><b>Início (fase latente):</b> contrações mais irregulares e suportáveis, que podem durar muitas horas, principalmente no primeiro bebê. É normal ir devagar.</li>
+      <li><b>Fase ativa:</b> contrações regulares, mais fortes e mais próximas, e o colo dilata mais rápido.</li>
+      <li><b>Expulsivo:</b> vontade de fazer força, quando o bebê desce e nasce. A equipe orienta você.</li>
+    </ul>
+    <p><b>Contrações de treinamento:</b> são irregulares, não aumentam de intensidade e costumam aliviar com repouso, banho morno ou mudança de posição. Preparam o corpo, mas não são o trabalho de parto.</p>
+  </div>
+</details>
+<details>
+  <summary><span class="ic">🛁</span>Alívio da dor sem remédio<span class="ch">›</span></summary>
+  <div class="body">
+    <ul>
+      <li><b>Movimentar-se:</b> andar, balançar o quadril e trocar de posição (de pé, de quatro, de cócoras, sentada).</li>
+      <li><b>Água morna:</b> banho de chuveiro ou banheira.</li>
+      <li><b>Calor:</b> compressa quente nas costas ou na barriga.</li>
+      <li><b>Massagem:</b> feita pelo seu acompanhante ou com massageadores.</li>
+      <li><b>Bola de pilates:</b> sentar e balançar alivia a pressão na pelve.</li>
+      <li><b>Respiração:</b> inspire fundo pelo nariz e solte o ar devagar pela boca. Soltar a voz em tom grave e relaxar o maxilar também ajuda.</li>
+      <li><b>Apoio e ambiente calmo:</b> acompanhante por perto, luz baixa e poucas conversas.</li>
+      <li><b>Hidratação:</b> líquidos e alimentos leves, com liberação da equipe.</li>
+    </ul>
+    <p style="color:var(--mute);font-size:.88rem;margin:0">Se a dor ficar difícil de suportar, avise a equipe: existem outras opções de alívio, e ela explica cada uma.</p>
+  </div>
+</details>
+
+<h2 class="sec" id="direitos">💗 Seus direitos e cuidados</h2>
+<details>
+  <summary><span class="ic">🏥</span>O que é o Pronto Socorro Obstétrico<span class="ch">›</span></summary>
+  <div class="body"><p>Serviço de atendimento de urgência e emergência voltado à saúde da mulher: gestantes, puérperas (até 42 dias pós-parto) e queixas ginecológicas.</p></div>
+</details>
+<details>
+  <summary><span class="ic">🤝</span>Cuidado Amigo da Mulher<span class="ch">›</span></summary>
+  <div class="body">
+    <div class="hl"><b>Direito a um acompanhante de livre escolha</b> para oferecer apoio físico e emocional durante o pré-parto, o parto e o pós-parto, se desejar.</div>
+    <ul>
+      <li><b>Movimento livre:</b> você é incentivada a andar e a se movimentar durante o trabalho de parto e a adotar a posição de sua escolha, a não ser que existam restrições médicas.</li>
+      <li><b>Alívio da dor:</b> banheira ou chuveiro, compressa quente, massageadores/massagens e bola de pilates.</li>
+      <li><b>Líquidos e alimentos leves</b> durante o trabalho de parto.</li>
+      <li><b>Menos procedimentos invasivos:</b> rompimento da bolsa, episiotomia (pique), parto instrumental (fórceps) ou cesárea só quando necessários, e isso será explicado a você.</li>
+      <li><b>Mãe e pai</b> podem ficar junto do recém-nascido 24 horas, com livre acesso a ambos ou ao responsável legal.</li>
+      <li><b>Planejamento familiar:</b> oferta de métodos como DIU de cobre e laqueadura tubária pós-parto.</li>
+    </ul>
+  </div>
+</details>
+<details>
+  <summary><span class="ic">🌟</span>Hora de Ouro: pele a pele<span class="ch">›</span></summary>
+  <div class="body">
+    <p>A equipe colocará o bebê em seu colo, próximo à mama, mantendo-o nessa posição por <b>1 hora ou mais</b>. É benéfico, pois:</p>
+    <ul>
+      <li>Proporciona o vínculo afetivo entre mãe e bebê;</li>
+      <li>Estimula a produção e a descida do colostro (primeiro leite);</li>
+      <li>Regulariza os batimentos do coração da mãe e do bebê;</li>
+      <li>Promove tranquilidade, aconchego e controla a temperatura do bebê.</li>
+    </ul>
+  </div>
+</details>
+
+<h2 class="sec" id="amamentar">🍼 Amamentação</h2>
+<details>
+  <summary><span class="ic">👶</span>Hospital Amigo da Criança<span class="ch">›</span></summary>
+  <div class="body">
+    <p>Prezamos pelo aleitamento materno em livre demanda, ou seja, amamentar sempre que o bebê quiser.</p>
+    <ul>
+      <li><span class="no">PROIBIDO</span> o uso de bicos (mamadeira, chupeta, conchas e protetores de seio) e leites artificiais. Se necessário, apenas com avaliação médica (NORMA NBCAL).</li>
+      <li>Disponibilizamos uma equipe multiprofissional para auxiliar na amamentação.</li>
+    </ul>
+  </div>
+</details>
+<details>
+  <summary><span class="ic">💛</span>Aleitamento materno<span class="ch">›</span></summary>
+  <div class="body">
+    <p>Amamentar é dar amor, saúde, alimento, conforto e proteção. Você não precisa dar água, suco, chá nem qualquer outro alimento até o bebê completar <b>6 meses</b>.</p>
+    <ul>
+      <li><b>Não existe leite fraco!</b> O leite dos primeiros dias após o parto se chama colostro, importante para a proteção imediata do bebê contra muitas doenças. É o que a criança precisa no início da vida.</li>
+      <li>O leite materno é de fácil digestão, por isso, é necessário amamentar em livre demanda, ou seja, oferecer a mama sempre que o bebê quiser.</li>
+    </ul>
+    <div class="hl r"><b>Dificuldade para amamentar após a alta?</b> Procure os meios de contato abaixo: (12) 3901-3507.</div>
+  </div>
+</details>
+
+<h2 class="sec" id="roteiro">🗺️ Roteiro do atendimento</h2>
+<details open>
+  <summary><span class="ic">📍</span>Passo a passo, da chegada à alta<span class="ch">›</span></summary>
+  <div class="body">
+    <ol class="tl">
+      <li data-n="1"><b>Chegada</b><br>Apresente documento com foto e o cartão do pré-natal. Seu acompanhante também precisa de documento com foto.</li>
+      <li data-n="2"><b>Avaliação</b><br>A equipe avalia você e o bebê. Se o trabalho de parto estiver no início, você fica no pré-parto: não há visitas, e a troca de acompanhante é às 07h e às 19h.</li>
+      <li data-n="3"><b>Trabalho de parto e parto</b><br>Acontece no PPP ou no centro obstétrico. Seu acompanhante pode ficar com você, e você pode se movimentar e usar métodos de alívio da dor. Entregue o plano de parto à equipe.</li>
+      <li data-n="4"><b>Hora de Ouro</b><br>Logo após o nascimento, o bebê fica no seu colo, pele a pele, por 1 hora ou mais, e é a primeira mamada.</li>
+      <li data-n="5"><b>Alojamento conjunto</b><br>Mãe e bebê ficam juntos 24 horas até a alta. Visitas das 10h às 20h, 1 pessoa por vez.</li>
+      <li data-n="6"><b>Alta e depois</b><br>Com dificuldade para amamentar, ligue para (12) 3901-3507. Você também pode ser doadora no Banco de Leite.</li>
+    </ol>
+    <p style="color:var(--mute);font-size:.88rem;margin:0">Cada gestação é diferente. A equipe explica cada etapa durante o atendimento.</p>
+  </div>
+</details>
+
+<h2 class="sec" id="internar">🛏️ Se for hora de internar</h2>
+<div class="alert">
+  <b>💅 Antes de uma cirurgia (como a cesárea): tire isso em casa</b>
+  A cesárea pode ser necessária mesmo quando o parto planejado é normal. Por isso, retire os itens abaixo em casa, antes de vir ao hospital. Assim, o seu atendimento não atrasa.
+  <ul>
+    <li><b>Cílios postiços ou extensão de cílios:</b> durante a anestesia você não consegue piscar nem proteger os olhos, e os fios e a cola podem irritar ou machucar.</li>
+    <li><b>Unhas de gel, acrílico ou postiças, e esmalte escuro:</b> o aparelho que mede o oxigênio no seu sangue é colocado no dedo, e esses itens atrapalham a leitura.</li>
+    <li><b>Piercings e joias:</b> podem se soltar e atrapalhar a respiração, e o metal pode causar queimadura quando o médico usa o bisturi elétrico.</li>
+  </ul>
+  <p style="margin:8px 0 0;font-size:.9rem">Dúvidas sobre o que precisa tirar? Pergunte à equipe: (12) 3901-3507.</p>
+</div>
+<details open>
+  <summary><span class="ic">📋</span>Orientações importantes<span class="ch">›</span></summary>
+  <div class="body">
+    <ul>
+      <li>Apresente documento com foto da paciente e do familiar;</li>
+      <li>Traga roupas confortáveis e produtos de higiene pessoal;</li>
+      <li>Traga somente os itens necessários: o hospital não se responsabiliza pelos pertences do paciente;</li>
+      <li>Não é permitido entrar com alimento no hospital: a refeição é disponibilizada pelo hospital;</li>
+      <li>📵 Coloque o celular no modo silencioso;</li>
+      <li>📷 Fotos são permitidas apenas com autorização da equipe de Enfermagem.</li>
+    </ul>
+  </div>
+</details>
+<details>
+  <summary><span class="ic">🚪</span>Setores e visitas<span class="ch">›</span></summary>
+  <div class="body">
+    <p><b>Pré-parto, PPP e Centro Obstétrico</b></p>
+    <p>O <b>pré-parto</b> é o setor para avaliação e acompanhamento da gestante em fase inicial do trabalho de parto. O <b>PPP</b> (pré-parto, parto e pós-parto) acompanha todo o processo do nascimento em um único ambiente. O <b>centro obstétrico</b> é destinado a parto cesárea e outros procedimentos ginecológicos/obstétricos.</p>
+    <ul>
+      <li><b>Pré-parto:</b> não são permitidas visitas. A troca de acompanhante acontece às <b>07h e às 19h</b>.</li>
+      <li><b>Centro Obstétrico ou PPP:</b> não há troca de acompanhante nem visitas.</li>
+      <li><b>Alojamento Conjunto:</b> mãe e bebê ficam juntos 24 horas, do nascimento até a alta, o que fortalece o vínculo e facilita a amamentação. Visitas das <b>10h às 20h</b>, 1 pessoa por vez.</li>
+    </ul>
+  </div>
+</details>
+
+<h2 class="sec" id="ferramentas">🧰 Ferramentas</h2>
+<details class="tool" open>
+  <summary><span class="ic">⏱️</span>Contador de contrações<span class="ch">›</span></summary>
+  <div class="body">
+    <p style="margin-top:0">Toque quando a contração começar e toque de novo quando ela terminar. Depois, mostre a tela para a equipe.</p>
+    <button class="big" id="ctBtn" type="button">Começou uma contração</button>
+    <p id="ctNow" style="text-align:center;font-weight:700;margin:8px 0 0;min-height:1.6em"></p>
+    <p id="ctSum" class="hl" style="display:none"></p>
+    <table class="ct"><thead><tr><th>Início</th><th>Duração</th><th>Intervalo*</th></tr></thead><tbody id="ctRows"></tbody></table>
+    <p style="color:var(--mute);font-size:.85rem;margin:8px 0 10px">*Tempo entre o início de uma contração e o início da anterior. O contador não substitui a avaliação da equipe: se tiver algum sinal de alerta, venha sem esperar.</p>
+    <button class="btn2" id="ctReset" type="button">Zerar contador</button>
+  </div>
+</details>
+<details class="tool">
+  <summary><span class="ic">📝</span>Meu plano de parto<span class="ch">›</span></summary>
+  <div class="body">
+    <p style="margin-top:0">Marque o que você deseja e entregue o plano à equipe, impresso ou na tela do celular.</p>
+    <label for="pName">Seu nome</label><input type="text" id="pName">
+    <label for="pComp">Acompanhante</label><input type="text" id="pComp">
+    <div class="opts">
+      <div class="mini">Durante o trabalho de parto</div>
+      <label><input type="checkbox" class="pc" data-g="Durante o trabalho de parto"><span>Quero andar, me movimentar e escolher a posição</span></label>
+      <label><input type="checkbox" class="pc" data-g="Durante o trabalho de parto"><span>Quero usar banheira ou chuveiro</span></label>
+      <label><input type="checkbox" class="pc" data-g="Durante o trabalho de parto"><span>Quero compressa quente e massagem</span></label>
+      <label><input type="checkbox" class="pc" data-g="Durante o trabalho de parto"><span>Quero usar a bola de pilates</span></label>
+      <label><input type="checkbox" class="pc" data-g="Durante o trabalho de parto"><span>Quero líquidos e alimentos leves</span></label>
+      <label><input type="checkbox" class="pc" data-g="Durante o trabalho de parto"><span>Prefiro ambiente com luz baixa e pouco barulho</span></label>
+      <label><input type="checkbox" class="pc" data-g="Durante o trabalho de parto"><span>Peço explicação antes de qualquer procedimento invasivo</span></label>
+      <div class="mini">Acompanhante</div>
+      <label><input type="checkbox" class="pc" data-g="Acompanhante"><span>Quero meu acompanhante comigo no pré-parto, parto e pós-parto</span></label>
+      <div class="mini">Nascimento e bebê</div>
+      <label><input type="checkbox" class="pc" data-g="Nascimento e bebê"><span>Quero contato pele a pele logo após o nascimento</span></label>
+      <label><input type="checkbox" class="pc" data-g="Nascimento e bebê"><span>Quero amamentar na primeira hora de vida</span></label>
+      <label><input type="checkbox" class="pc" data-g="Nascimento e bebê"><span>Quero o bebê junto de mim durante as 24 horas</span></label>
+      <div class="mini">Depois do parto</div>
+      <label><input type="checkbox" class="pc" data-g="Depois do parto"><span>Quero conversar sobre planejamento familiar (DIU de cobre ou laqueadura)</span></label>
+    </div>
+    <label for="pObs" style="display:block;margin-top:10px">Outras observações</label>
+    <textarea id="pObs" rows="3"></textarea>
+    <p style="color:var(--mute);font-size:.85rem;margin:0 0 10px">O plano expressa seus desejos. A equipe avalia o que é possível conforme a segurança sua e do bebê.</p>
+    <div class="contact">
+      <button class="btn2 fill" id="pView" type="button">Ver resumo</button>
+      <button class="btn2" id="pCopy" type="button">Copiar texto</button>
+      <button class="btn2" id="pPrint" type="button">Imprimir / salvar PDF</button>
+    </div>
+    <div class="out" id="pOut" style="display:none"></div>
+  </div>
+</details>
+
+<h2 class="sec" id="projetos">🌷 Projetos e serviços</h2>
+<details>
+  <summary><span class="ic">🌸</span>Projeto Acolher<span class="ch">›</span></summary>
+  <div class="body">
+    <p>Venha conhecer a Maternidade do Hospital Municipal! Um momento para esclarecer dúvidas, receber orientações e conhecer todo o processo, desde a internação até o dia da alta, visitando todos os setores do bloco materno.</p>
+    <p>Acontece todas as semanas, com vagas limitadas. Traga seu acompanhante!</p>
+    <div class="contact"><a class="btn" href="tel:+551239013507">📞 (12) 3901-3507</a></div>
+  </div>
+</details>
+<details>
+  <summary><span class="ic">🎓</span>Curso de Gestantes<span class="ch">›</span></summary>
+  <div class="body">
+    <p>Venha entender sobre fisioterapia na gestação, alimentação, direitos e deveres da mulher, práticas de parto, amamentação e cuidados com o bebê.</p>
+    <p>Acontece todo mês, com vagas limitadas. Traga seu acompanhante!</p>
+    <div class="contact"><a class="btn" href="tel:+551239013507">📞 Inscrições: (12) 3901-3507</a></div>
+  </div>
+</details>
+<details>
+  <summary><span class="ic">🥛</span>Banco de Leite Humano<span class="ch">›</span></summary>
+  <div class="body">
+    <p>O leite materno é importante para todos os bebês, principalmente para prematuros ou internados, pois aumenta a chance de recuperação e de terem uma vida mais saudável. Se você está amamentando, seja uma doadora e ajude quem precisa. Para se cadastrar ou tirar dúvidas, ligue para (12) 3901-3507.</p>
+    <div class="hl"><b>Banco de Leite Humano:</b> segunda a sexta, 07h às 17h. Avenida Saigiro Nakamura, 800, Vila Industrial, SJC.</div>
+    <div class="hl"><b>Projeto Casulo:</b> segunda a sexta, 07h às 16h. Rua Antônio Moraes de Barros, 110, Centro, SJC. Tel. (12) 3913-6040 ou 3941-3205. Atendimento apenas para moradoras de SJC.</div>
+  </div>
+</details>
+
+<h2 class="sec" id="contato">📍 Contato</h2>
+<details open>
+  <summary><span class="ic">📞</span>Hospital Municipal Dr. José de Carvalho Florence<span class="ch">›</span></summary>
+  <div class="body">
+    <p>Rua Saigiro Nakamura, 800, Vila Industrial<br>CEP 12.220-280, São José dos Campos, SP</p>
+    <div class="contact">
+      <a class="btn" href="tel:+551239013507">📞 Ligar</a>
+      <a class="btn" href="https://www.google.com/maps/search/?api=1&query=Hospital+Municipal+Dr.+Jos%C3%A9+de+Carvalho+Florence+S%C3%A3o+Jos%C3%A9+dos+Campos" target="_blank" rel="noopener">🗺️ Abrir no mapa</a>
+    </div>
+  </div>
+</details>
+
+<footer>Conteúdo baseado no folheto do hospital. Em caso de dúvida ou urgência, procure a equipe de saúde.<br>SPDM · Associação Paulista para o Desenvolvimento da Medicina</footer>
+</div>
+
+<script>
+document.querySelectorAll('nav a').forEach(function(a){a.addEventListener('click',function(){
+  var t=document.querySelector(a.getAttribute('href'));
+  var d=t&&(t.tagName==='H2'?t.nextElementSibling:null);
+  if(d&&d.tagName==='DETAILS')d.open=true;
+})});
+['levar','perguntar','mala-mae','mala-bebe','mala-acomp'].forEach(function(id){
+  var boxes=document.querySelectorAll('#'+id+' input'),saved=[];
+  try{saved=JSON.parse(localStorage.getItem('gg_'+id)||'[]')}catch(e){}
+  boxes.forEach(function(b,i){
+    b.checked=!!saved[i];
+    b.addEventListener('change',function(){
+      var s=[].map.call(boxes,function(x){return x.checked});
+      try{localStorage.setItem('gg_'+id,JSON.stringify(s))}catch(e){}
+    });
+  });
+});
+</script>
+<div id="printArea"></div>
+<script>
+(function(){
+function $(i){return document.getElementById(i)}
+function ld(k){try{return JSON.parse(localStorage.getItem(k)||'null')}catch(e){return null}}
+function sv(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+function fm(s){s=Math.max(0,Math.round(s));return Math.floor(s/60)+':'+('0'+s%60).slice(-2)}
+function hm(t){var d=new Date(t);return ('0'+d.getHours()).slice(-2)+':'+('0'+d.getMinutes()).slice(-2)}
+/* contador */
+var list=ld('gg_ct')||[],tm=null,btn=$('ctBtn');
+function render(){
+  var run=list.length>0&&!list[list.length-1].e;
+  btn.className='big'+(run?' on':'');
+  btn.textContent=run?'Terminou':'Começou uma contração';
+  var rows='';
+  for(var i=list.length-1;i>=Math.max(0,list.length-8);i--){var c=list[i],p=list[i-1];
+    rows+='<tr><td>'+hm(c.s)+'</td><td>'+(c.e?fm((c.e-c.s)/1000):'em curso')+'</td><td>'+(p?fm((c.s-p.s)/1000):'-')+'</td></tr>';}
+  $('ctRows').innerHTML=rows||'<tr><td colspan="3" style="color:var(--mute)">Nenhuma contração registrada.</td></tr>';
+  var d=list.filter(function(c){return c.e}).slice(-5),sm=$('ctSum');
+  if(d.length>=2){
+    var dur=d.reduce(function(a,c){return a+(c.e-c.s)},0)/d.length/1000;
+    var itv=(d[d.length-1].s-d[0].s)/(d.length-1)/1000;
+    sm.textContent='Média das últimas '+d.length+': duração de '+fm(dur)+' e intervalo de '+fm(itv)+' (min:seg).';
+    sm.style.display='block';
+  }else sm.style.display='none';
+  clearInterval(tm);tm=null;
+  if(run){var tick=function(){$('ctNow').textContent='Em curso: '+fm((Date.now()-list[list.length-1].s)/1000)};tick();tm=setInterval(tick,1000)}
+  else $('ctNow').textContent='';
+}
+btn.addEventListener('click',function(){
+  var last=list[list.length-1];
+  if(last&&!last.e)last.e=Date.now();else list.push({s:Date.now(),e:null});
+  sv('gg_ct',list);render();
+});
+$('ctReset').addEventListener('click',function(){list=[];sv('gg_ct',list);render()});
+render();
+/* plano de parto */
+var boxes=document.querySelectorAll('.pc'),flds=['pName','pComp','pObs'];
+function planText(){
+  var o=['MEU PLANO DE PARTO',''],g='',any=false;
+  if($('pName').value.trim())o.push('Nome: '+$('pName').value.trim());
+  if($('pComp').value.trim())o.push('Acompanhante: '+$('pComp').value.trim());
+  boxes.forEach(function(b){if(!b.checked)return;any=true;
+    if(b.getAttribute('data-g')!==g){g=b.getAttribute('data-g');o.push('','• '+g.toUpperCase())}
+    o.push('- '+b.parentNode.textContent.trim());});
+  if(!any)o.push('','Nenhuma preferência marcada.');
+  if($('pObs').value.trim())o.push('','OBSERVAÇÕES: '+$('pObs').value.trim());
+  o.push('','Este plano expressa os meus desejos. Entendo que a equipe avalia o que é possível conforme a segurança minha e do bebê.');
+  return o.join('\n');
+}
+function savePlan(){sv('gg_plano',{f:flds.map(function(i){return $(i).value}),c:[].map.call(boxes,function(b){return b.checked})});
+  if($('pOut').style.display!=='none')$('pOut').textContent=planText();}
+var sp=ld('gg_plano');
+if(sp){flds.forEach(function(i,k){$(i).value=sp.f[k]||''});boxes.forEach(function(b,k){b.checked=!!sp.c[k]})}
+flds.forEach(function(i){$(i).addEventListener('input',savePlan)});
+boxes.forEach(function(b){b.addEventListener('change',savePlan)});
+$('pView').addEventListener('click',function(){var o=$('pOut');if(o.style.display==='none'){o.textContent=planText();o.style.display='block';this.textContent='Ocultar resumo'}else{o.style.display='none';this.textContent='Ver resumo'}});
+$('pCopy').addEventListener('click',function(){var b=this;
+  try{navigator.clipboard.writeText(planText()).then(function(){b.textContent='Copiado ✓'},function(){b.textContent='Não foi possível copiar'})}catch(e){b.textContent='Não foi possível copiar'}
+  setTimeout(function(){b.textContent='Copiar texto'},2000)});
+$('pPrint').addEventListener('click',function(){var p=$('printArea');p.innerHTML='';var pre=document.createElement('pre');pre.style.cssText='white-space:pre-wrap;font-family:Georgia,serif;font-size:16px;line-height:1.6';pre.textContent=planText();p.appendChild(pre);window.print()});
+})();
+</script>
+</body>
+</html>
