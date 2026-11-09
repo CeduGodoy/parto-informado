@@ -108,18 +108,6 @@ footer{text-align:center;color:var(--mute);font-size:.85rem;margin-top:32px}
   </div>
 </details>
 <details>
-  <summary><span class="ic">🧳</span>Mala da maternidade<span class="ch">›</span></summary>
-  <div class="body checks">
-    <p style="margin:0;color:var(--mute);font-size:.9rem">Leve só o necessário. Pergunte à equipe o que o hospital já fornece. Mamadeira, chupeta e bicos não entram: são proibidos no hospital.</p>
-    <div class="mini">👩 Para a mãe</div>
-    <div id="mala-mae"><label><input type="checkbox"><span>Camisolas ou roupas confortáveis (de preferência abertas na frente)</span></label><label><input type="checkbox"><span>Sutiã de amamentação</span></label><label><input type="checkbox"><span>Absorventes pós-parto</span></label><label><input type="checkbox"><span>Calcinhas confortáveis</span></label><label><input type="checkbox"><span>Chinelo e meias</span></label><label><input type="checkbox"><span>Itens de higiene pessoal</span></label><label><input type="checkbox"><span>Roupa confortável para a alta</span></label></div>
-    <div class="mini">👶 Para o bebê</div>
-    <div id="mala-bebe"><label><input type="checkbox"><span>Roupinhas para a saída (body, macacão, meias, luvas)</span></label><label><input type="checkbox"><span>Manta ou casaquinho</span></label><label><input type="checkbox"><span>Fraldas</span></label><label><input type="checkbox"><span>Touca</span></label></div>
-    <div class="mini">🧑 Para o acompanhante</div>
-    <div id="mala-acomp"><label><input type="checkbox"><span>Documento com foto</span></label><label><input type="checkbox"><span>Roupa confortável e item de higiene</span></label><label><input type="checkbox"><span>Carregador de celular</span></label></div>
-  </div>
-</details>
-<details>
   <summary><span class="ic">💬</span>O que perguntar à equipe<span class="ch">›</span></summary>
   <div class="body checks" id="perguntar">
     <p style="margin:0 0 4px;color:var(--mute);font-size:.9rem">Sugestões para anotar suas dúvidas:</p>
@@ -132,11 +120,41 @@ footer{text-align:center;color:var(--mute);font-size:.85rem;margin-top:32px}
     <label><input type="checkbox"><span>Quais métodos de planejamento familiar posso escolher?</span></label>
   </div>
 </details>
-<details>
+<details class="tool">
   <summary><span class="ic">📝</span>Plano de parto<span class="ch">›</span></summary>
   <div class="body">
     <p>É um documento em que a gestante escreve, de forma clara, como deseja que sejam os cuidados durante o trabalho de parto, o parto, o pós-parto e os cuidados com o bebê.</p>
     <div class="hl r"><b>Já fez o seu? Entregue para a equipe!</b></div>
+    <p>Ainda não tem um? Sem problemas, marque o que você deseja e entregue o plano à equipe, impresso ou na tela do celular.</p>
+    <label for="pName">Seu nome</label><input type="text" id="pName">
+    <label for="pComp">Acompanhante</label><input type="text" id="pComp">
+    <div class="opts">
+      <div class="mini">Durante o trabalho de parto</div>
+      <label><input type="checkbox" class="pc" data-g="Durante o trabalho de parto"><span>Quero andar, me movimentar e escolher a posição</span></label>
+      <label><input type="checkbox" class="pc" data-g="Durante o trabalho de parto"><span>Quero usar banheira ou chuveiro</span></label>
+      <label><input type="checkbox" class="pc" data-g="Durante o trabalho de parto"><span>Quero compressa quente e massagem</span></label>
+      <label><input type="checkbox" class="pc" data-g="Durante o trabalho de parto"><span>Quero usar a bola de pilates</span></label>
+      <label><input type="checkbox" class="pc" data-g="Durante o trabalho de parto"><span>Quero líquidos e alimentos leves</span></label>
+      <label><input type="checkbox" class="pc" data-g="Durante o trabalho de parto"><span>Prefiro ambiente com luz baixa e pouco barulho</span></label>
+      <label><input type="checkbox" class="pc" data-g="Durante o trabalho de parto"><span>Peço explicação antes de qualquer procedimento invasivo</span></label>
+      <div class="mini">Acompanhante</div>
+      <label><input type="checkbox" class="pc" data-g="Acompanhante"><span>Quero meu acompanhante comigo no pré-parto, parto e pós-parto</span></label>
+      <div class="mini">Nascimento e bebê</div>
+      <label><input type="checkbox" class="pc" data-g="Nascimento e bebê"><span>Quero contato pele a pele logo após o nascimento</span></label>
+      <label><input type="checkbox" class="pc" data-g="Nascimento e bebê"><span>Quero amamentar na primeira hora de vida</span></label>
+      <label><input type="checkbox" class="pc" data-g="Nascimento e bebê"><span>Quero o bebê junto de mim durante as 24 horas</span></label>
+      <div class="mini">Depois do parto</div>
+      <label><input type="checkbox" class="pc" data-g="Depois do parto"><span>Quero conversar sobre planejamento familiar (DIU de cobre ou laqueadura)</span></label>
+    </div>
+    <label for="pObs" style="display:block;margin-top:10px">Outras observações</label>
+    <textarea id="pObs" rows="3"></textarea>
+    <p style="color:var(--mute);font-size:.85rem;margin:0 0 10px">O plano expressa seus desejos. A equipe avalia o que é possível conforme a segurança sua e do bebê.</p>
+    <div class="contact">
+      <button class="btn2 fill" id="pView" type="button">Ver resumo</button>
+      <button class="btn2" id="pCopy" type="button">Copiar texto</button>
+      <button class="btn2" id="pPrint" type="button">Imprimir / salvar PDF</button>
+    </div>
+    <div class="out" id="pOut" style="display:none"></div>
   </div>
 </details>
 
@@ -338,43 +356,11 @@ footer{text-align:center;color:var(--mute);font-size:.85rem;margin-top:32px}
     <p id="ctNow" style="text-align:center;font-weight:700;margin:8px 0 0;min-height:1.6em"></p>
     <p id="ctSum" class="hl" style="display:none"></p>
     <table class="ct"><thead><tr><th>Início</th><th>Duração</th><th>Intervalo*</th></tr></thead><tbody id="ctRows"></tbody></table>
-    <p style="color:var(--mute);font-size:.85rem;margin:8px 0 10px">*Tempo entre o início de uma contração e o início da anterior. O contador não substitui a avaliação da equipe: se tiver algum sinal de alerta, venha sem esperar.</p>
-    <button class="btn2" id="ctReset" type="button">Zerar contador</button>
-  </div>
-</details>
-<details class="tool">
-  <summary><span class="ic">📝</span>Meu plano de parto<span class="ch">›</span></summary>
-  <div class="body">
-    <p style="margin-top:0">Marque o que você deseja e entregue o plano à equipe, impresso ou na tela do celular.</p>
-    <label for="pName">Seu nome</label><input type="text" id="pName">
-    <label for="pComp">Acompanhante</label><input type="text" id="pComp">
-    <div class="opts">
-      <div class="mini">Durante o trabalho de parto</div>
-      <label><input type="checkbox" class="pc" data-g="Durante o trabalho de parto"><span>Quero andar, me movimentar e escolher a posição</span></label>
-      <label><input type="checkbox" class="pc" data-g="Durante o trabalho de parto"><span>Quero usar banheira ou chuveiro</span></label>
-      <label><input type="checkbox" class="pc" data-g="Durante o trabalho de parto"><span>Quero compressa quente e massagem</span></label>
-      <label><input type="checkbox" class="pc" data-g="Durante o trabalho de parto"><span>Quero usar a bola de pilates</span></label>
-      <label><input type="checkbox" class="pc" data-g="Durante o trabalho de parto"><span>Quero líquidos e alimentos leves</span></label>
-      <label><input type="checkbox" class="pc" data-g="Durante o trabalho de parto"><span>Prefiro ambiente com luz baixa e pouco barulho</span></label>
-      <label><input type="checkbox" class="pc" data-g="Durante o trabalho de parto"><span>Peço explicação antes de qualquer procedimento invasivo</span></label>
-      <div class="mini">Acompanhante</div>
-      <label><input type="checkbox" class="pc" data-g="Acompanhante"><span>Quero meu acompanhante comigo no pré-parto, parto e pós-parto</span></label>
-      <div class="mini">Nascimento e bebê</div>
-      <label><input type="checkbox" class="pc" data-g="Nascimento e bebê"><span>Quero contato pele a pele logo após o nascimento</span></label>
-      <label><input type="checkbox" class="pc" data-g="Nascimento e bebê"><span>Quero amamentar na primeira hora de vida</span></label>
-      <label><input type="checkbox" class="pc" data-g="Nascimento e bebê"><span>Quero o bebê junto de mim durante as 24 horas</span></label>
-      <div class="mini">Depois do parto</div>
-      <label><input type="checkbox" class="pc" data-g="Depois do parto"><span>Quero conversar sobre planejamento familiar (DIU de cobre ou laqueadura)</span></label>
-    </div>
-    <label for="pObs" style="display:block;margin-top:10px">Outras observações</label>
-    <textarea id="pObs" rows="3"></textarea>
-    <p style="color:var(--mute);font-size:.85rem;margin:0 0 10px">O plano expressa seus desejos. A equipe avalia o que é possível conforme a segurança sua e do bebê.</p>
+    <p style="color:var(--mute);font-size:.85rem;margin:8px 0 10px">*Tempo entre o fim de uma contração e o início da seguinte. O contador não substitui a avaliação da equipe: se tiver algum sinal de alerta, venha sem esperar.</p>
     <div class="contact">
-      <button class="btn2 fill" id="pView" type="button">Ver resumo</button>
-      <button class="btn2" id="pCopy" type="button">Copiar texto</button>
-      <button class="btn2" id="pPrint" type="button">Imprimir / salvar PDF</button>
+      <button class="btn2 fill" id="ctPrint" type="button">Imprimir últimas 3 contrações</button>
+      <button class="btn2" id="ctReset" type="button">Zerar contador</button>
     </div>
-    <div class="out" id="pOut" style="display:none"></div>
   </div>
 </details>
 
@@ -425,7 +411,7 @@ document.querySelectorAll('nav a').forEach(function(a){a.addEventListener('click
   var d=t&&(t.tagName==='H2'?t.nextElementSibling:null);
   if(d&&d.tagName==='DETAILS')d.open=true;
 })});
-['levar','perguntar','mala-mae','mala-bebe','mala-acomp'].forEach(function(id){
+['levar','perguntar'].forEach(function(id){
   var boxes=document.querySelectorAll('#'+id+' input'),saved=[];
   try{saved=JSON.parse(localStorage.getItem('gg_'+id)||'[]')}catch(e){}
   boxes.forEach(function(b,i){
@@ -453,17 +439,19 @@ function render(){
   btn.textContent=run?'Terminou':'Começou uma contração';
   var rows='';
   for(var i=list.length-1;i>=Math.max(0,list.length-8);i--){var c=list[i],p=list[i-1];
-    rows+='<tr><td>'+hm(c.s)+'</td><td>'+(c.e?fm((c.e-c.s)/1000):'em curso')+'</td><td>'+(p?fm((c.s-p.s)/1000):'-')+'</td></tr>';}
+    rows+='<tr><td>'+hm(c.s)+'</td><td>'+(c.e?fm((c.e-c.s)/1000):'em curso')+'</td><td>'+((p&&p.e)?fm((c.s-p.e)/1000):'-')+'</td></tr>';}
   $('ctRows').innerHTML=rows||'<tr><td colspan="3" style="color:var(--mute)">Nenhuma contração registrada.</td></tr>';
   var d=list.filter(function(c){return c.e}).slice(-5),sm=$('ctSum');
   if(d.length>=2){
     var dur=d.reduce(function(a,c){return a+(c.e-c.s)},0)/d.length/1000;
-    var itv=(d[d.length-1].s-d[0].s)/(d.length-1)/1000;
+    var itvSum=0;for(var k=1;k<d.length;k++)itvSum+=(d[k].s-d[k-1].e);
+    var itv=itvSum/(d.length-1)/1000;
     sm.textContent='Média das últimas '+d.length+': duração de '+fm(dur)+' e intervalo de '+fm(itv)+' (min:seg).';
     sm.style.display='block';
   }else sm.style.display='none';
   clearInterval(tm);tm=null;
   if(run){var tick=function(){$('ctNow').textContent='Em curso: '+fm((Date.now()-list[list.length-1].s)/1000)};tick();tm=setInterval(tick,1000)}
+  else if(list.length>0&&list[list.length-1].e){var tickItv=function(){$('ctNow').textContent='Intervalo desde a última: '+fm((Date.now()-list[list.length-1].e)/1000)};tickItv();tm=setInterval(tickItv,1000)}
   else $('ctNow').textContent='';
 }
 btn.addEventListener('click',function(){
@@ -472,6 +460,37 @@ btn.addEventListener('click',function(){
   sv('gg_ct',list);render();
 });
 $('ctReset').addEventListener('click',function(){list=[];sv('gg_ct',list);render()});
+$('ctPrint').addEventListener('click',function(){
+  var fin=list.filter(function(c){return c.e});
+  var sub=(fin.length?fin:list).slice(-3);
+  var o=['REGISTRO DAS ÚLTIMAS CONTRAÇÕES',''];
+  if($('pName')&&$('pName').value.trim())o.push('Gestante: '+$('pName').value.trim());
+  o.push('Data: '+new Date().toLocaleDateString('pt-BR'),'');
+  if(!sub.length){
+    o.push('Nenhuma contração registrada até o momento.');
+  }else{
+    sub.forEach(function(c,idx){
+      var dur=c.e?fm((c.e-c.s)/1000):'em curso';
+      o.push((idx+1)+'ª contração — Início: '+hm(c.s)+' | Duração: '+dur);
+      var next=sub[idx+1];
+      if(next&&c.e){
+        o.push('   Pausa (intervalo até a próxima): '+fm((next.s-c.e)/1000));
+      }
+    });
+    if(sub.length>=2&&sub.every(function(c){return c.e})){
+      var avgDur=sub.reduce(function(a,c){return a+(c.e-c.s)},0)/sub.length/1000;
+      var itvSum=0;for(var k=1;k<sub.length;k++)itvSum+=(sub[k].s-sub[k-1].e);
+      var avgItv=itvSum/(sub.length-1)/1000;
+      o.push('','Média dessas '+sub.length+' contrações: duração de '+fm(avgDur)+' e pausa/intervalo de '+fm(avgItv)+' (min:seg).');
+    }
+  }
+  var p=$('printArea');p.innerHTML='';
+  var pre=document.createElement('pre');
+  pre.style.cssText='white-space:pre-wrap;font-family:Georgia,serif;font-size:16px;line-height:1.6';
+  pre.textContent=o.join('\n');
+  p.appendChild(pre);
+  window.print();
+});
 render();
 /* plano de parto */
 var boxes=document.querySelectorAll('.pc'),flds=['pName','pComp','pObs'];
