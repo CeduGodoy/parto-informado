@@ -18,8 +18,23 @@ header{text-align:center;padding:36px 8px 20px}
 .logo{width:72px;height:72px;border-radius:50%;background:var(--rose2);display:grid;place-items:center;font-size:36px;margin:0 auto 12px}
 h1{font-family:'Fraunces',Georgia,serif;font-size:2rem;line-height:1.15;margin:0 0 8px}
 header p{color:var(--mute);margin:0 auto;max-width:460px}
-nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding:8px 0;margin:0 -16px;display:flex;gap:8px;overflow-x:auto;padding-left:16px;padding-right:16px;scrollbar-width:none}
-nav a{flex:none;text-decoration:none;color:var(--ink);background:var(--card);border:1px solid var(--line);padding:6px 14px;border-radius:99px;font-size:.88rem;font-weight:600}
+.nav-wrap{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);margin:0 -16px}
+.nav-wrap::before,.nav-wrap::after{content:"";position:absolute;top:0;bottom:0;width:36px;pointer-events:none;z-index:2;opacity:0;transition:opacity .2s}
+.nav-wrap::before{left:0;background:linear-gradient(to right,var(--bg) 15%,transparent)}
+.nav-wrap::after{right:0;background:linear-gradient(to left,var(--bg) 15%,transparent)}
+.nav-wrap.fade-l::before,.nav-wrap.fade-r::after{opacity:1}
+nav{display:flex;gap:8px;overflow-x:auto;padding:8px 16px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+nav::-webkit-scrollbar{display:none}
+@media (hover:hover) and (pointer:fine){
+  nav{padding-bottom:6px;scrollbar-width:thin;scrollbar-color:var(--line) transparent}
+  nav:hover{scrollbar-color:var(--rose) transparent}
+  nav::-webkit-scrollbar{display:block;height:6px}
+  nav::-webkit-scrollbar-track{background:transparent;margin:0 16px}
+  nav::-webkit-scrollbar-thumb{background:var(--line);border-radius:99px}
+  nav:hover::-webkit-scrollbar-thumb{background:var(--rose)}
+  nav a:hover{border-color:var(--rose);color:var(--rose)}
+}
+nav a{flex:none;text-decoration:none;color:var(--ink);background:var(--card);border:1px solid var(--line);padding:6px 14px;border-radius:99px;font-size:.88rem;font-weight:600;transition:border-color .15s,color .15s}
 h2.sec{font-family:'Fraunces',Georgia,serif;font-size:1.3rem;margin:28px 0 10px;color:var(--rose)}
 .alert{background:var(--warn);border-left:5px solid var(--warnb);border-radius:14px;padding:14px 16px;margin:4px 0 18px}
 .alert b{display:block;margin-bottom:4px}
@@ -80,7 +95,8 @@ footer{text-align:center;color:var(--mute);font-size:.85rem;margin-top:32px}
   <p>Pronto Socorro Obstétrico e Ginecológico<br>Hospital Municipal Dr. José de Carvalho Florence</p>
 </header>
 
-<nav>
+<div class="nav-wrap fade-r" id="navWrap">
+<nav id="topNav">
   <a href="#preparo">Prepare-se</a>
   <a href="#alertas">Alertas</a>
   <a href="#esperar">O que esperar</a>
@@ -92,6 +108,7 @@ footer{text-align:center;color:var(--mute);font-size:.85rem;margin-top:32px}
   <a href="#projetos">Projetos</a>
   <a href="#contato">Contato</a>
 </nav>
+</div>
 
 <h2 class="sec" id="preparo">✅ Prepare-se</h2>
 <details open>
@@ -406,11 +423,33 @@ footer{text-align:center;color:var(--mute);font-size:.85rem;margin-top:32px}
 </div>
 
 <script>
-document.querySelectorAll('nav a').forEach(function(a){a.addEventListener('click',function(){
-  var t=document.querySelector(a.getAttribute('href'));
-  var d=t&&(t.tagName==='H2'?t.nextElementSibling:null);
-  if(d&&d.tagName==='DETAILS')d.open=true;
-})});
+(function(){
+  var nav=document.getElementById('topNav'),wrap=document.getElementById('navWrap');
+  function updNav(){
+    if(!nav||!wrap)return;
+    wrap.classList.toggle('fade-l',nav.scrollLeft>4);
+    wrap.classList.toggle('fade-r',nav.scrollLeft+nav.clientWidth<nav.scrollWidth-4);
+  }
+  if(nav){
+    nav.addEventListener('scroll',updNav,{passive:true});
+    window.addEventListener('resize',updNav);
+    nav.addEventListener('wheel',function(e){
+      if(Math.abs(e.deltaY)>Math.abs(e.deltaX)&&nav.scrollWidth>nav.clientWidth){
+        nav.scrollLeft+=e.deltaY;
+        e.preventDefault();
+      }
+    },{passive:false});
+    updNav();
+  }
+  document.querySelectorAll('nav a').forEach(function(a){a.addEventListener('click',function(){
+    var t=document.querySelector(a.getAttribute('href'));
+    var d=t&&(t.tagName==='H2'?t.nextElementSibling:null);
+    if(d&&d.tagName==='DETAILS')d.open=true;
+    if(nav&&nav.scrollTo){
+      nav.scrollTo({left:a.offsetLeft-nav.clientWidth/2+a.offsetWidth/2,behavior:'smooth'});
+    }
+  })});
+})();
 ['levar','perguntar'].forEach(function(id){
   var boxes=document.querySelectorAll('#'+id+' input'),saved=[];
   try{saved=JSON.parse(localStorage.getItem('gg_'+id)||'[]')}catch(e){}
