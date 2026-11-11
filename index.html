@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>PartoInformado</title>
+<script>try{var t=localStorage.getItem('gg_theme');if(t==='dark'||t==='light')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#fff7f4;--card:#fff;--ink:#3b2b2f;--mute:#7a666b;--rose:#d9738a;--rose2:#f9dfe5;--sage:#7fa38c;--sage2:#e3efe7;--warn:#fff1d6;--warnb:#e0a63a;--line:#f0d9de;
@@ -14,7 +15,9 @@ html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 64px);scroll-behavio
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 'Nunito',system-ui,sans-serif}
 .wrap{max-width:720px;margin:0 auto;padding:0 16px 48px}
-header{text-align:center;padding:36px 8px 20px}
+header{position:relative;text-align:center;padding:36px 8px 20px}
+.theme-btn{position:absolute;top:12px;right:0;display:inline-flex;align-items:center;gap:6px;background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:99px;padding:6px 12px;font:600 .82rem 'Nunito',system-ui,sans-serif;cursor:pointer;transition:border-color .15s,color .15s}
+.theme-btn:hover{border-color:var(--rose);color:var(--rose)}
 .logo{width:72px;height:72px;border-radius:50%;background:var(--rose2);display:grid;place-items:center;font-size:36px;margin:0 auto 12px}
 h1{font-family:'Fraunces',Georgia,serif;font-size:2rem;line-height:1.15;margin:0 0 8px}
 header p{color:var(--mute);margin:0 auto;max-width:460px}
@@ -85,14 +88,27 @@ table.ct th,table.ct td{padding:6px 4px;border-bottom:1px solid var(--line);text
 #printArea{display:none}
 @media print{.wrap{display:none!important}#printArea{display:block!important;color:#000;background:#fff;padding:24px}body{background:#fff}}
 footer{text-align:center;color:var(--mute);font-size:.85rem;margin-top:32px}
+.inst-logos{display:inline-flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:14px 20px;margin-top:14px;padding:10px 18px;background:#fff;border:1px solid var(--line);border-radius:16px}
+.inst-logos img{height:44px;width:auto;max-width:100%;object-fit:contain;display:block}
+.inst-logos .sep{width:1px;height:32px;background:#e6d2d7}
+@media(min-width:560px){.inst-logos img{height:52px}.inst-logos .sep{height:38px}}
+.footer-logos{margin-bottom:10px;padding:8px 16px;gap:12px 16px}
+.footer-logos img{height:34px}
+@media(min-width:560px){.footer-logos img{height:38px}}
 </style>
 </head>
 <body>
 <div class="wrap">
 <header>
+  <button class="theme-btn" id="themeBtn" type="button" aria-label="Alternar tema claro ou escuro">🌙 Escuro</button>
   <div class="logo">🤰</div>
   <h1>PartoInformado</h1>
   <p>Pronto Socorro Obstétrico e Ginecológico<br>Hospital Municipal Dr. José de Carvalho Florence</p>
+  <div class="inst-logos" aria-label="Instituições parceiras">
+    <img src="logo-hospital-municipal-sjc.png" width="256" height="239" alt="Hospital Municipal Dr. José de Carvalho Florence — SPDM">
+    <span class="sep" aria-hidden="true"></span>
+    <img src="logo-unifesp.png" width="407" height="241" alt="UNIFESP — Universidade Federal de São Paulo">
+  </div>
 </header>
 
 <div class="nav-wrap fade-r" id="navWrap">
@@ -419,11 +435,44 @@ footer{text-align:center;color:var(--mute);font-size:.85rem;margin-top:32px}
   </div>
 </details>
 
-<footer>Conteúdo baseado no folheto do hospital. Em caso de dúvida ou urgência, procure a equipe de saúde.<br>SPDM · Associação Paulista para o Desenvolvimento da Medicina</footer>
+<footer>
+  <div class="inst-logos footer-logos" aria-hidden="true">
+    <img src="logo-hospital-municipal-sjc.png" width="256" height="239" loading="lazy" alt="">
+    <span class="sep"></span>
+    <img src="logo-unifesp.png" width="407" height="241" loading="lazy" alt="">
+  </div>
+  <div>Conteúdo baseado no folheto do hospital. Em caso de dúvida ou urgência, procure a equipe de saúde.<br>Hospital Municipal Dr. José de Carvalho Florence · SPDM · UNIFESP</div>
+</footer>
 </div>
 
 <script>
 (function(){
+  var tBtn=document.getElementById('themeBtn'),root=document.documentElement;
+  function isDark(){
+    var dt=root.getAttribute('data-theme');
+    if(dt==='dark')return true;
+    if(dt==='light')return false;
+    return window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches;
+  }
+  function syncThemeBtn(){
+    if(!tBtn)return;
+    var d=isDark();
+    tBtn.textContent=d?'☀️ Claro':'🌙 Escuro';
+    tBtn.setAttribute('aria-label',d?'Mudar para modo claro':'Mudar para modo escuro');
+  }
+  if(tBtn){
+    syncThemeBtn();
+    tBtn.addEventListener('click',function(){
+      var next=isDark()?'light':'dark';
+      root.setAttribute('data-theme',next);
+      try{localStorage.setItem('gg_theme',next)}catch(e){}
+      syncThemeBtn();
+    });
+    if(window.matchMedia){
+      var mq=window.matchMedia('(prefers-color-scheme: dark)');
+      if(mq.addEventListener)mq.addEventListener('change',syncThemeBtn);
+    }
+  }
   var nav=document.getElementById('topNav'),wrap=document.getElementById('navWrap');
   function updNav(){
     if(!nav||!wrap)return;
